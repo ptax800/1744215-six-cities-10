@@ -14,15 +14,15 @@ function App(): JSX.Element {
     <BrowserRouter >
       <Routes>
         <Route
-          path={AppRoute.Root}
+          path={AppRoute.Login}
           element={<LoginScreen />}
         />
         <Route
-          path={AppRoute.Root}
+          path={AppRoute.Main}
           element={<MainScreen />}
         />
         <Route
-          path={AppRoute.Favorite}
+          path={AppRoute.Favorites}
           element={
             <PrivateRoute
               authorizationStatus={AuthorizationStatus.NoAuth}
@@ -32,7 +32,7 @@ function App(): JSX.Element {
           }
         />
         <Route
-          path={AppRoute.Property}
+          path={AppRoute.Room}
           element={<PropertyNotLogged />}
         />
         <Route
