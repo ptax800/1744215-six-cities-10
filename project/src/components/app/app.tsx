@@ -7,9 +7,13 @@ import PropertyNotLogged from '../../pages/property-not-logged/property-not-logg
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import PrivateRoute from '../private-route/private-route';
+import { Offer } from '../../types/offer';
 
+type AppScreenProps = {
+  offers: Offer;
+}
 
-function App(): JSX.Element {
+function App({offers}: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter >
       <Routes>
