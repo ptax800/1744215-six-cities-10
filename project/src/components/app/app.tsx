@@ -1,3 +1,5 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
 import {AppRoute, AuthorizationStatus} from '../../const';
 import LoginScreen from '../../pages/login-screen/login-screen';
 import MainScreen from '../../pages/main/main-screen';
@@ -5,15 +7,15 @@ import FavoriteEmptyScreen from '../../pages/favorite-empty-screen/favorite-empt
 //import Property from '../../pages/property/property';
 import PropertyNotLogged from '../../pages/property-not-logged/property-not-logged';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import PrivateRoute from '../private-route/private-route';
 import { Offer } from '../../types/offer';
 
 type AppScreenProps = {
-  offers: Offer;
+  offers: Offer[]
 }
 
-function App({offers}: AppScreenProps): JSX.Element {
+
+function App({ offers }: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter >
       <Routes>
@@ -23,7 +25,7 @@ function App({offers}: AppScreenProps): JSX.Element {
         />
         <Route
           path={AppRoute.Main}
-          element={<MainScreen />}
+          element={<MainScreen offers={offers} />}
         />
         <Route
           path={AppRoute.Favorites}
@@ -31,7 +33,7 @@ function App({offers}: AppScreenProps): JSX.Element {
             <PrivateRoute
               authorizationStatus={AuthorizationStatus.NoAuth}
             >
-              <FavoriteEmptyScreen />
+            <FavoriteEmptyScreen />
             </PrivateRoute>
           }
         />
