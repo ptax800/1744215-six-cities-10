@@ -1,13 +1,27 @@
 import Logo from '../../components/logo/logo';
+import { Offer } from '../../types/offer';
+import PropertyNotLogged from '../../pages/property-not-logged/property-not-logged';
+import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 
+import { useParams } from 'react-router-dom';
+import React from 'react';
 
-function Property (): JSX.Element {
+type PropertyProps = {
+  offers: Offer[]
+}
+
+// offer/:id => offer/2
+function Property ({ offers }: PropertyProps): JSX.Element {
+  const { id } = useParams() as { id: string };
+
+  const offerId = +id;
+  const offer = offers.find(({ id }) => id === offerId) ?? null;
+
+  if (offer === null) {
+    return <NotFoundScreen />;
+  }
+
   return (
-    <>
-      <div style={{display: 'none'}}>
-        <svg xmlns="http://www.w3.org/2000/svg"><symbol id="icon-arrow-select" viewBox="0 0 7 4"><path fillRule="evenodd" clip-rule="evenodd" d="M0 0l3.5 2.813L7 0v1.084L3.5 4 0 1.084V0z"></path></symbol><symbol id="icon-bookmark" viewBox="0 0 17 18"><path d="M3.993 2.185l.017-.092V2c0-.554.449-1 .99-1h10c.522 0 .957.41.997.923l-2.736 14.59-4.814-2.407-.39-.195-.408.153L1.31 16.44 3.993 2.185z"></path></symbol><symbol id="icon-star" viewBox="0 0 13 12"><path fill-rule="evenodd" clip-rule="evenodd" d="M6.5 9.644L10.517 12 9.451 7.56 13 4.573l-4.674-.386L6.5 0 4.673 4.187 0 4.573 3.549 7.56 2.483 12 6.5 9.644z"></path></symbol></svg>
-      </div>
-
       <div className="page">
         <header className="header">
           <div className="container">
@@ -40,24 +54,25 @@ function Property (): JSX.Element {
           <section className="property">
             <div className="property__gallery-container container">
               <div className="property__gallery">
-                <div className="property__image-wrapper">
-                  <img className="property__image" src="img/room.jpg" alt="Photo studio" />
-                </div>
-                <div className="property__image-wrapper">
-                  <img className="property__image" src="img/apartment-01.jpg" alt="Photo studio" />
-                </div>
-                <div className="property__image-wrapper">
-                  <img className="property__image" src="img/apartment-02.jpg" alt="Photo studio" />
-                </div>
-                <div className="property__image-wrapper">
-                  <img className="property__image" src="img/apartment-03.jpg" alt="Photo studio" />
-                </div>
-                <div className="property__image-wrapper">
-                  <img className="property__image" src="img/studio-01.jpg" alt="Photo studio" />
-                </div>
-                <div className="property__image-wrapper">
-                  <img className="property__image" src="img/apartment-01.jpg" alt="Photo studio" />
-                </div>
+              {
+
+                offers.map((mainPicture) =>
+                  <div className="property__image-wrapper" key = {mainPicture.previewImage}>
+                    <img className="property__image" src={ mainPicture.previewImage } alt="studio" />
+                  </div>
+                )
+
+              }
+
+              {
+                  offers.map((offerData) => (
+                    offerData.images.map((imageSourse) => (
+                          <div className="property__image-wrapper" key={imageSourse}>
+                            <img className="property__image" src={ imageSourse } alt="studio" />
+                          </div>
+                    ))
+                  ))
+              }
               </div>
             </div>
             <div className="property__container container">
@@ -67,7 +82,7 @@ function Property (): JSX.Element {
                 </div>
                 <div className="property__name-wrapper">
                   <h1 className="property__name">
-                  Beautiful &amp; luxurious studio at great location
+                    {offer.title}
                   </h1>
                   <button className="property__bookmark-button button" type="button">
                     <svg className="property__bookmark-icon" width="31" height="33">
@@ -96,7 +111,7 @@ function Property (): JSX.Element {
                 </ul>
                 <div className="property__price">
                   <b className="property__price-value">&euro;120</b>
-                  <span className="property__price-text">&nbsp;night</span>
+                  <span className="property__price-text">{' '}night</span>
                 </div>
                 <div className="property__inside">
                   <h2 className="property__inside-title">What&apos;s inside</h2>
@@ -339,7 +354,6 @@ function Property (): JSX.Element {
           </div>
         </main>
       </div>
-    </>
   );
 }
 

@@ -1,5 +1,4 @@
-//import { Link } from 'react'
-//import { Routes, Route, useParams, Link } from 'react-router-dom';
+import { Routes, Route, useParams, Link } from 'react-router-dom';
 
 import { Offer } from '../../types/offer';
 import {AppRoute, AuthorizationStatus} from '../../const';

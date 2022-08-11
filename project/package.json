@@ -21,16 +21,16 @@
     "lint": "eslint --ext .tsx --ext .ts src/"
   },
   "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest",
-      "htmlacademy/react-typescript"
-    ],
     "rules": {
       "no-console": "off",
       "indent": "off",
       "no-trailing-spaces": "off"
-   }
+   },
+    "extends": [
+      "react-app",
+      "react-app/jest",
+      "htmlacademy/react-typescript"
+    ]
   },
   "browserslist": {
     "production": [
